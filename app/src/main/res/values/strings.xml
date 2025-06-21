@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MindSpace</string>
+    <string name="welcome_title">Hello MindSpace!</string>
+    <string name="welcome_message">Welcome to your mental wellness companion. This is a test build to ensure your device can run MindSpace perfectly.</string>
+    <string name="test_status">✅ APK Test Successful!</string>
+</resources> 
