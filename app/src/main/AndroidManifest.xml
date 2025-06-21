@@ -41,6 +41,14 @@
             android:name=".MeditationPlayerActivity"
             android:exported="false"
             android:parentActivityName=".MeditationLibraryActivity" />
+        <activity
+            android:name=".CBTExercisesActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".CBTExerciseActivity"
+            android:exported="false"
+            android:parentActivityName=".CBTExercisesActivity" />
         
     </application>
 

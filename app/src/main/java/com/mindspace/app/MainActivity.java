@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView dateDisplay;
     private Button moodHappy, moodCalm, moodStressed, moodAnxious;
     private Button moodSad, moodExcited, moodTired, moodAngry;
-    private Button viewHistory, resourcesButton, meditationButton;
+    private Button viewHistory, resourcesButton, meditationButton, cbtButton;
     private TextView streakCounter;
 
     @Override
@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         viewHistory = findViewById(R.id.view_history);
         resourcesButton = findViewById(R.id.resources_button);
         meditationButton = findViewById(R.id.meditation_button);
+        cbtButton = findViewById(R.id.cbt_button);
         streakCounter = findViewById(R.id.streak_counter);
     }
     
@@ -107,6 +108,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, MeditationLibraryActivity.class);
+                startActivity(intent);
+            }
+        });
+        
+        // CBT button click listener
+        cbtButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, CBTExercisesActivity.class);
                 startActivity(intent);
             }
         });

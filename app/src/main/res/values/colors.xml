@@ -29,4 +29,12 @@
     <color name="meditation_light_purple">#E8D5E8</color>
     <color name="meditation_background">#F8F4F8</color>
     <color name="meditation_category_bg">#F0F0F0</color>
+    
+    <!-- CBT Colors -->
+    <color name="cbt_primary">#4A90E2</color>
+    <color name="cbt_light">#E8F2FF</color>
+    <color name="cbt_accent">#7B68EE</color>
+    <color name="cbt_success">#20B2AA</color>
+    <color name="cbt_warning">#FF6B6B</color>
+    <color name="cbt_background">#F7FAFF</color>
 </resources> 
