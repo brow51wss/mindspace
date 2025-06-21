@@ -119,4 +119,21 @@
     <color name="plan_action_title">#234E52</color>
     <color name="plan_action_description">#285E61</color>
     <color name="plan_action_note">#38B2AC</color>
+    
+    <!-- Splash Screen Colors -->
+    <color name="splash_gradient_start">#667eea</color>
+    <color name="splash_gradient_center">#764ba2</color>
+    <color name="splash_gradient_end">#f093fb</color>
+    <color name="splash_text_primary">#FFFFFF</color>
+    <color name="splash_text_secondary">#E2E8F0</color>
+    <color name="splash_text_tertiary">#CBD5E0</color>
+    <color name="splash_dot_color">#A0AEC0</color>
+    
+    <!-- Logo Colors -->
+    <color name="logo_background_primary">#4FD1C7</color>
+    <color name="logo_background_secondary">#38B2AC</color>
+    <color name="logo_text_color">#FFFFFF</color>
+    <color name="logo_text_shadow">#2D3748</color>
+    <color name="logo_accent_light">#E6FFFA</color>
+    <color name="logo_accent_wave">#81E6D9</color>
 </resources> 

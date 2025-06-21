@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+
+    <!-- Background Circle -->
+    <path
+        android:pathData="M100,20 A80,80 0 1,1 100,180 A80,80 0 1,1 100,20 Z"
+        android:fillColor="@color/logo_background_primary" />
+    
+    <!-- Inner Circle -->
+    <path
+        android:pathData="M100,30 A70,70 0 1,1 100,170 A70,70 0 1,1 100,30 Z"
+        android:fillColor="@color/logo_background_secondary" />
+
+    <!-- Letter "M" - Simplified -->
+    <path
+        android:pathData="M60,70 L60,130 L70,130 L70,85 L85,115 L90,115 L105,85 L105,130 L115,130 L115,70 L100,70 L87.5,100 L75,70 Z"
+        android:fillColor="@color/logo_text_color" />
+
+    <!-- Letter "P" - Simplified -->
+    <path
+        android:pathData="M125,70 L125,130 L135,130 L135,105 L150,105 C156.627,105 162,99.627 162,93 L162,82 C162,75.373 156.627,70 150,70 L125,70 Z M135,80 L150,80 C151.105,80 152,80.895 152,82 L152,93 C152,94.105 151.105,95 150,95 L135,95 L135,80 Z"
+        android:fillColor="@color/logo_text_color" />
+
+    <!-- Decorative Dots -->
+    <path
+        android:pathData="M97,50 A3,3 0 1,1 103,50 A3,3 0 1,1 97,50 Z"
+        android:fillColor="@color/logo_accent_light" />
+    
+    <path
+        android:pathData="M97,150 A3,3 0 1,1 103,150 A3,3 0 1,1 97,150 Z"
+        android:fillColor="@color/logo_accent_light" />
+
+    <!-- Mind Wave Pattern -->
+    <path
+        android:pathData="M70,140 Q80,135 90,140 Q100,145 110,140 Q120,135 130,140"
+        android:strokeColor="@color/logo_accent_wave"
+        android:strokeWidth="2"
+        android:fillColor="@android:color/transparent"
+        android:strokeLineCap="round" />
+
+</vector> 
