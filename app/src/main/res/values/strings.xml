@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">MindSpace</string>
+    
+    <!-- Daily Check-in strings -->
+    <string name="mood_prompt">How are you feeling today?</string>
+    <string name="view_history">View History</string>
+    <string name="mood_logged">Mood logged successfully!</string>
+    <string name="select_mood">Please select your mood</string>
+    
+    <!-- Mood labels -->
+    <string name="mood_happy">😊 Happy</string>
+    <string name="mood_calm">😌 Calm</string>
+    <string name="mood_stressed">😰 Stressed</string>
+    <string name="mood_anxious">😟 Anxious</string>
+    <string name="mood_sad">😢 Sad</string>
+    <string name="mood_excited">🤩 Excited</string>
+    <string name="mood_tired">😴 Tired</string>
+    <string name="mood_angry">😠 Angry</string>
+    
+    <!-- Legacy strings -->
     <string name="welcome_title">Hello MindSpace!</string>
     <string name="welcome_message">Welcome to your mental wellness companion. This is a test build to ensure your device can run MindSpace perfectly.</string>
     <string name="test_status">✅ APK Test Successful!</string>

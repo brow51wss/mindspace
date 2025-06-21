@@ -21,6 +21,11 @@
             </intent-filter>
         </activity>
         
+        <activity
+            android:name=".MoodHistoryActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+        
     </application>
 
 </manifest> 
