@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView dateDisplay;
     private Button moodHappy, moodCalm, moodStressed, moodAnxious;
     private Button moodSad, moodExcited, moodTired, moodAngry;
-    private Button viewHistory, resourcesButton;
+    private Button viewHistory, resourcesButton, meditationButton;
     private TextView streakCounter;
 
     @Override
@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         // Other elements
         viewHistory = findViewById(R.id.view_history);
         resourcesButton = findViewById(R.id.resources_button);
+        meditationButton = findViewById(R.id.meditation_button);
         streakCounter = findViewById(R.id.streak_counter);
     }
     
@@ -97,6 +98,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ResourceHubActivity.class);
+                startActivity(intent);
+            }
+        });
+        
+        // Meditation button click listener
+        meditationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MeditationLibraryActivity.class);
                 startActivity(intent);
             }
         });

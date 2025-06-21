@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/rounded_background"
+    android:backgroundTint="@android:color/white"
+    android:padding="16dp"
+    android:layout_marginBottom="8dp"
+    android:clickable="true"
+    android:focusable="true">
+
+    <!-- Session Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="8dp">
+
+        <TextView
+            android:id="@+id/sessionTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Quick Calm"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary" />
+
+        <TextView
+            android:id="@+id/sessionDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5 minutes"
+            android:textSize="14sp"
+            android:textColor="@color/meditation_purple"
+            android:textStyle="bold"
+            android:background="@drawable/rounded_background"
+            android:backgroundTint="@color/meditation_light_purple"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp" />
+
+    </LinearLayout>
+
+    <!-- Session Level -->
+    <TextView
+        android:id="@+id/sessionLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Beginner"
+        android:textSize="12sp"
+        android:textColor="@color/text_secondary"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Session Description -->
+    <TextView
+        android:id="@+id/sessionDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="A rapid stress-relief technique perfect for busy students."
+        android:textSize="14sp"
+        android:textColor="@color/text_secondary"
+        android:lineSpacingExtra="2dp" />
+
+    <!-- Play Button Indicator -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="▶ Tap to start"
+            android:textSize="12sp"
+            android:textColor="@color/primary_blue"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</LinearLayout> 

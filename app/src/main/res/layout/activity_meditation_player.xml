@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/meditation_background"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center">
+
+        <!-- Session Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/rounded_background"
+            android:backgroundTint="@android:color/white"
+            android:padding="24dp"
+            android:layout_marginBottom="32dp">
+
+            <TextView
+                android:id="@+id/sessionTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Quick Calm"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:gravity="center"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/statusText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ready to begin • Beginner level"
+                android:textSize="14sp"
+                android:textColor="@color/text_secondary"
+                android:gravity="center"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:id="@+id/sessionDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="A rapid stress-relief technique perfect for busy students."
+                android:textSize="16sp"
+                android:textColor="@color/text_secondary"
+                android:gravity="center"
+                android:lineSpacingExtra="4dp" />
+
+        </LinearLayout>
+
+        <!-- Timer Circle -->
+        <LinearLayout
+            android:layout_width="280dp"
+            android:layout_height="280dp"
+            android:orientation="vertical"
+            android:background="@drawable/rounded_background"
+            android:backgroundTint="@color/meditation_purple"
+            android:gravity="center"
+            android:layout_marginBottom="32dp">
+
+            <TextView
+                android:id="@+id/timerText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="05:00"
+                android:textSize="48sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="minutes remaining"
+                android:textSize="14sp"
+                android:textColor="@android:color/white"
+                android:alpha="0.8" />
+
+        </LinearLayout>
+
+        <!-- Progress Bar -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_marginBottom="32dp"
+            android:progressTint="@color/meditation_purple"
+            android:progressBackgroundTint="@color/meditation_light_purple"
+            android:max="100"
+            android:progress="0" />
+
+        <!-- Control Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="24dp">
+
+            <Button
+                android:id="@+id/stopButton"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:text="⏹ Stop"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_secondary"
+                android:background="@drawable/rounded_background"
+                android:backgroundTint="@color/background_light"
+                android:paddingHorizontal="24dp"
+                android:layout_marginEnd="16dp" />
+
+            <Button
+                android:id="@+id/playPauseButton"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:text="▶ Start"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:background="@drawable/rounded_background"
+                android:backgroundTint="@color/meditation_purple"
+                android:paddingHorizontal="32dp" />
+
+        </LinearLayout>
+
+        <!-- Meditation Tips -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/rounded_background"
+            android:backgroundTint="@color/meditation_light_purple"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="🧘‍♀️ During Your Session"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/meditation_purple"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="• Sit comfortably with your back straight\n• Close your eyes or soften your gaze\n• Focus on your breath naturally\n• Let thoughts come and go without judgment"
+                android:textSize="14sp"
+                android:textColor="@color/text_secondary"
+                android:lineSpacingExtra="4dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView> 

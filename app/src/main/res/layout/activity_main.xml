@@ -172,28 +172,48 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:gravity="center"
             android:layout_marginBottom="16dp">
             
-            <Button
-                android:id="@+id/view_history"
-                android:layout_width="wrap_content"
+            <!-- First Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/view_history"
-                android:textColor="@color/primary_color"
-                android:background="@android:color/transparent"
-                android:textStyle="bold"
-                android:layout_marginEnd="16dp" />
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginBottom="8dp">
                 
+                <Button
+                    android:id="@+id/view_history"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/view_history"
+                    android:textColor="@color/primary_color"
+                    android:background="@android:color/transparent"
+                    android:textStyle="bold"
+                    android:layout_marginEnd="16dp" />
+                    
+                <Button
+                    android:id="@+id/resources_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📚 Resources"
+                    android:textColor="@color/primary_color"
+                    android:background="@android:color/transparent"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            
+            <!-- Second Row -->
             <Button
-                android:id="@+id/resources_button"
+                android:id="@+id/meditation_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="📚 Resources"
-                android:textColor="@color/primary_color"
+                android:text="🧘‍♀️ Meditation"
+                android:textColor="@color/meditation_purple"
                 android:background="@android:color/transparent"
                 android:textStyle="bold" />
+                
         </LinearLayout>
             
         <TextView

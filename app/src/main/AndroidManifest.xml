@@ -33,6 +33,14 @@
             android:name=".ArticleDetailActivity"
             android:exported="false"
             android:parentActivityName=".ResourceHubActivity" />
+        <activity
+            android:name=".MeditationLibraryActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".MeditationPlayerActivity"
+            android:exported="false"
+            android:parentActivityName=".MeditationLibraryActivity" />
         
     </application>
 
