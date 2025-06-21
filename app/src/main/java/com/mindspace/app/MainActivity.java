@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView dateDisplay;
     private Button moodHappy, moodCalm, moodStressed, moodAnxious;
     private Button moodSad, moodExcited, moodTired, moodAngry;
-    private Button viewHistory;
+    private Button viewHistory, resourcesButton;
     private TextView streakCounter;
 
     @Override
@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         
         // Other elements
         viewHistory = findViewById(R.id.view_history);
+        resourcesButton = findViewById(R.id.resources_button);
         streakCounter = findViewById(R.id.streak_counter);
     }
     
@@ -87,6 +88,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, MoodHistoryActivity.class);
+                startActivity(intent);
+            }
+        });
+        
+        // Resources button click listener
+        resourcesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ResourceHubActivity.class);
                 startActivity(intent);
             }
         });

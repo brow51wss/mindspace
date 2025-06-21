@@ -16,4 +16,5 @@
     <color name="mood_excited">#9B59B6</color>
     <color name="mood_tired">#95A5A6</color>
     <color name="mood_angry">#C0392B</color>
+    <color name="stress_color">#E74C3C</color>
 </resources> 

@@ -25,6 +25,14 @@
             android:name=".MoodHistoryActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ResourceHubActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ArticleDetailActivity"
+            android:exported="false"
+            android:parentActivityName=".ResourceHubActivity" />
         
     </application>
 
