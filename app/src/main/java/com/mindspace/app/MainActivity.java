@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView dateDisplay;
     private Button moodHappy, moodCalm, moodStressed, moodAnxious;
     private Button moodSad, moodExcited, moodTired, moodAngry;
-    private Button viewHistory, resourcesButton, meditationButton, cbtButton, progressButton, achievementsButton;
+    private Button viewHistory, resourcesButton, meditationButton, cbtButton, progressButton, achievementsButton, personalPlanButton;
     private TextView streakCounter;
     private StreakTracker streakTracker;
 
@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         cbtButton = findViewById(R.id.cbt_button);
         progressButton = findViewById(R.id.progress_button);
         achievementsButton = findViewById(R.id.achievements_button);
+        personalPlanButton = findViewById(R.id.personal_plan_button);
         streakCounter = findViewById(R.id.streak_counter);
         
         // Make streak counter clickable
@@ -154,6 +155,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, AchievementSystemActivity.class);
+                startActivity(intent);
+            }
+        });
+        
+        // Personal Plan button click listener
+        personalPlanButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, PersonalizedPlanActivity.class);
                 startActivity(intent);
             }
         });

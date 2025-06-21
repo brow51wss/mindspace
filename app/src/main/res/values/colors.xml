@@ -91,4 +91,32 @@
     <color name="milestone_card_background">#F1F8E9</color>
     <color name="tips_card_background">#FFF3E0</color>
     <color name="tips_text">#E65100</color>
+    
+    <!-- Personalized Plan Colors -->
+    <color name="plan_background">#F0F4F8</color>
+    <color name="plan_header_title">#1A365D</color>
+    <color name="plan_header_subtitle">#4A5568</color>
+    <color name="plan_header_accent">#4299E1</color>
+    <color name="plan_section_title">#2D3748</color>
+    
+    <!-- AI Badge Colors -->
+    <color name="plan_ai_badge_background">#EDF2F7</color>
+    <color name="plan_ai_title">#2B6CB0</color>
+    <color name="plan_ai_description">#4A5568</color>
+    
+    <!-- Plan Card Colors -->
+    <color name="plan_mixed_color">#667EEA</color>
+    <color name="plan_default_color">#718096</color>
+    
+    <!-- Insight Card Colors -->
+    <color name="insight_card_background">#FFFFFF</color>
+    <color name="insight_title_color">#2D3748</color>
+    <color name="insight_text_color">#4A5568</color>
+    <color name="insight_action_color">#3182CE</color>
+    
+    <!-- Action Card Colors -->
+    <color name="plan_action_card_background">#E6FFFA</color>
+    <color name="plan_action_title">#234E52</color>
+    <color name="plan_action_description">#285E61</color>
+    <color name="plan_action_note">#38B2AC</color>
 </resources> 
