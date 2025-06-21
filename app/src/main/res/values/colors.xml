@@ -37,4 +37,58 @@
     <color name="cbt_success">#20B2AA</color>
     <color name="cbt_warning">#FF6B6B</color>
     <color name="cbt_background">#F7FAFF</color>
+    
+    <!-- Achievement Colors -->
+    <color name="achievement_background">#FFF9E6</color>
+    <color name="achievement_header">#FFD700</color>
+    <color name="achievement_title">#8B4513</color>
+    <color name="achievement_stats_bg">#FFF8DC</color>
+    <color name="achievement_stats_text">#B8860B</color>
+    <color name="achievement_stats_subtitle">#DAA520</color>
+    <color name="achievement_divider">#DDD</color>
+    <color name="achievement_gold">#FFD700</color>
+    <color name="achievement_bronze">#CD7F32</color>
+    <color name="achievement_locked">#E0E0E0</color>
+    
+    <!-- Dashboard Colors -->
+    <color name="dashboard_background">#F8FAFC</color>
+    <color name="dashboard_header">#4F46E5</color>
+    <color name="dashboard_title">#FFFFFF</color>
+    <color name="dashboard_stats_bg">#EEF2FF</color>
+    <color name="dashboard_stats_number">#4F46E5</color>
+    <color name="dashboard_stats_label">#64748B</color>
+    <color name="dashboard_section_title">#1E293B</color>
+    <color name="white">#FFFFFF</color>
+    
+    <!-- Activity Card Colors -->
+    <color name="mood_card_bg">#FEF3C7</color>
+    <color name="mood_card_number">#92400E</color>
+    <color name="mood_card_label">#A16207</color>
+    
+    <color name="meditation_card_bg">#F3E8FF</color>
+    <color name="meditation_card_number">#7C3AED</color>
+    <color name="meditation_card_label">#8B5CF6</color>
+    
+    <color name="cbt_card_bg">#DBEAFE</color>
+    <color name="cbt_card_number">#1D4ED8</color>
+    <color name="cbt_card_label">#3B82F6</color>
+    
+    <color name="achievement_card_bg">#FEF3C7</color>
+    <color name="achievement_card_number">#92400E</color>
+    <color name="achievement_card_label">#A16207</color>
+    
+    <!-- Insights Card Colors -->
+    <color name="insights_card_bg">#F0FDF4</color>
+    <color name="insights_title">#15803D</color>
+    <color name="insights_text">#166534</color>
+    
+    <!-- Streak System Colors -->
+    <color name="streak_card_background">#FFE0B2</color>
+    <color name="streak_text">#FF6F00</color>
+    <color name="mood_card_background">#FFF8E1</color>
+    <color name="meditation_card_background">#F3E5F5</color>
+    <color name="cbt_card_background">#E3F2FD</color>
+    <color name="milestone_card_background">#F1F8E9</color>
+    <color name="tips_card_background">#FFF3E0</color>
+    <color name="tips_text">#E65100</color>
 </resources> 

@@ -49,6 +49,18 @@
             android:name=".CBTExerciseActivity"
             android:exported="false"
             android:parentActivityName=".CBTExercisesActivity" />
+        <activity
+            android:name=".AchievementSystemActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ProgressDashboardActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".StreakDetailsActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
         
     </application>
 

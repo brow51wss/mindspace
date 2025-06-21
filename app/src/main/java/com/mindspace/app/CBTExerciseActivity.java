@@ -13,8 +13,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import android.content.Context;
+import android.content.SharedPreferences;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class CBTExerciseActivity extends AppCompatActivity {
     private static final String TAG = "CBTExercise";
@@ -31,6 +35,7 @@ public class CBTExerciseActivity extends AppCompatActivity {
     private List<ExerciseStep> steps;
     private List<String> userResponses;
     private int currentStep = 0;
+    private StreakTracker streakTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +43,9 @@ public class CBTExerciseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cbt_exercise);
 
         Log.d(TAG, "CBT Exercise Activity started");
+        
+        // Initialize streak tracker
+        streakTracker = new StreakTracker(this);
 
         initializeViews();
         getExerciseData();
@@ -258,6 +266,10 @@ public class CBTExerciseActivity extends AppCompatActivity {
 
         finishButton.setOnClickListener(v -> {
             Log.d(TAG, "Exercise completed");
+            
+            // Track CBT exercise completion for achievements
+            trackCBTCompletion();
+            
             Toast.makeText(this, "Great work! You've completed the exercise.", Toast.LENGTH_LONG).show();
             finish();
         });
@@ -346,6 +358,47 @@ public class CBTExerciseActivity extends AppCompatActivity {
         
         finishButton.setVisibility(View.VISIBLE);
         finishButton.setText("Complete Exercise");
+    }
+    
+    private void trackCBTCompletion() {
+        SharedPreferences cbtPrefs = getSharedPreferences("MindSpaceCBT", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = cbtPrefs.edit();
+        
+        // Update CBT stats
+        int totalExercises = cbtPrefs.getInt("total_exercises", 0) + 1;
+        editor.putInt("total_exercises", totalExercises);
+        editor.putLong("last_exercise_time", System.currentTimeMillis());
+        
+        // Track completed exercise types
+        Set<String> completedTypes = cbtPrefs.getStringSet("completed_types", new HashSet<>());
+        completedTypes.add(exerciseId);
+        editor.putStringSet("completed_types", completedTypes);
+        
+        editor.apply();
+        
+        // Update streak tracking with new system
+        StreakTracker.StreakResult streakResult = streakTracker.updateStreak(StreakTracker.StreakType.CBT);
+        
+        Log.d(TAG, "CBT exercise completed - ID: " + exerciseId + " (Total: " + totalExercises + ")");
+        
+        // Show streak milestone message if reached
+        if (streakResult.milestoneReached > 0 || streakResult.isNewBest) {
+            String streakMessage = streakTracker.getMotivationalMessage(streakResult);
+            showStreakToast(streakMessage);
+        } else if (streakResult.isStreakIncreased) {
+            String streakMessage = streakTracker.getMotivationalMessage(streakResult);
+            showStreakToast(streakMessage);
+        }
+    }
+    
+    private void showStreakToast(String message) {
+        android.os.Handler handler = new android.os.Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(CBTExerciseActivity.this, message, Toast.LENGTH_LONG).show();
+            }
+        }, 2000);
     }
 
     // Exercise Step data class

@@ -231,6 +231,35 @@
                     android:background="@android:color/transparent"
                     android:textStyle="bold" />
             </LinearLayout>
+            
+            <!-- Third Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginBottom="8dp">
+                
+                <Button
+                    android:id="@+id/progress_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📊 Progress"
+                    android:textColor="@color/dashboard_stats_number"
+                    android:background="@android:color/transparent"
+                    android:textStyle="bold"
+                    android:layout_marginEnd="16dp" />
+                
+                <Button
+                    android:id="@+id/achievements_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🏆 Achievements"
+                    android:textColor="@color/achievement_stats_text"
+                    android:background="@android:color/transparent"
+                    android:textStyle="bold" />
+                    
+            </LinearLayout>
                 
         </LinearLayout>
             

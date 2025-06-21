@@ -1,8 +1,11 @@
 package com.mindspace.app;
 
 import androidx.appcompat.app.AppCompatActivity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,17 +19,22 @@ public class MainActivity extends AppCompatActivity {
     private TextView dateDisplay;
     private Button moodHappy, moodCalm, moodStressed, moodAnxious;
     private Button moodSad, moodExcited, moodTired, moodAngry;
-    private Button viewHistory, resourcesButton, meditationButton, cbtButton;
+    private Button viewHistory, resourcesButton, meditationButton, cbtButton, progressButton, achievementsButton;
     private TextView streakCounter;
+    private StreakTracker streakTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
+        // Initialize streak tracker
+        streakTracker = new StreakTracker(this);
+        
         initializeViews();
         setupDateDisplay();
         setupMoodButtons();
+        updateStreakDisplay();
     }
     
     private void initializeViews() {
@@ -47,7 +55,18 @@ public class MainActivity extends AppCompatActivity {
         resourcesButton = findViewById(R.id.resources_button);
         meditationButton = findViewById(R.id.meditation_button);
         cbtButton = findViewById(R.id.cbt_button);
+        progressButton = findViewById(R.id.progress_button);
+        achievementsButton = findViewById(R.id.achievements_button);
         streakCounter = findViewById(R.id.streak_counter);
+        
+        // Make streak counter clickable
+        streakCounter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, StreakDetailsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
     
     private void setupDateDisplay() {
@@ -120,14 +139,67 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        
+        // Progress button click listener
+        progressButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ProgressDashboardActivity.class);
+                startActivity(intent);
+            }
+        });
+        
+        // Achievements button click listener
+        achievementsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AchievementSystemActivity.class);
+                startActivity(intent);
+            }
+        });
     }
     
     private void logMood(String mood) {
-        // TODO: Save mood to database
+        // Save mood data for achievements
+        SharedPreferences moodPrefs = getSharedPreferences("MindSpaceMoods", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = moodPrefs.edit();
         
-        // For now, show a success message
+        // Update mood tracking stats
+        int totalEntries = moodPrefs.getInt("total_entries", 0) + 1;
+        editor.putInt("total_entries", totalEntries);
+        editor.putLong("last_entry_time", System.currentTimeMillis());
+        
+        // Store time for early bird achievement
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        editor.putString("last_entry_time_formatted", timeFormat.format(new Date()));
+        
+        // Simple streak tracking (would be more sophisticated in real app)
+        String lastEntryDate = moodPrefs.getString("last_entry_date", "");
+        String todayDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        
+        if (!todayDate.equals(lastEntryDate)) {
+            int currentStreak = moodPrefs.getInt("current_streak", 0) + 1;
+            editor.putInt("current_streak", currentStreak);
+            editor.putString("last_entry_date", todayDate);
+        }
+        
+        editor.apply();
+        
+        Log.d("MainActivity", "Mood logged: " + mood + " (Total entries: " + totalEntries + ")");
+        
+        // Update streak tracking
+        StreakTracker.StreakResult streakResult = streakTracker.updateStreak(StreakTracker.StreakType.MOOD);
+        updateStreakDisplay();
+        
+        // Show success message with streak info
         String message = "Feeling " + mood.toLowerCase() + " today! 🌟";
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        
+        // Show streak milestone message if reached
+        if (streakResult.milestoneReached > 0 || streakResult.isNewBest) {
+            String streakMessage = streakTracker.getMotivationalMessage(streakResult);
+            showDelayedToast(streakMessage, 2500);
+        }
         
         // Show mood-based suggestion
         showMoodSuggestion(mood);
@@ -174,5 +246,28 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, suggestion, Toast.LENGTH_LONG).show();
             }
         }, 2000);
+    }
+    
+    private void updateStreakDisplay() {
+        String streakText = streakTracker.getStreakDisplayText();
+        streakCounter.setText(streakText);
+        Log.d("MainActivity", "Streak display updated: " + streakText);
+    }
+    
+    private void showDelayedToast(String message, int delayMillis) {
+        android.os.Handler handler = new android.os.Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+            }
+        }, delayMillis);
+    }
+    
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Update streak display when returning to main screen
+        updateStreakDisplay();
     }
 } 

@@ -1,7 +1,10 @@
 package com.mindspace.app;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -19,12 +22,16 @@ public class MeditationPlayerActivity extends AppCompatActivity {
     private boolean isPaused = false;
     private long totalTimeInMillis;
     private long remainingTimeInMillis;
+    private StreakTracker streakTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meditation_player);
 
+        // Initialize streak tracker
+        streakTracker = new StreakTracker(this);
+        
         initializeViews();
         setupSessionData();
         setupButtonListeners();
@@ -139,6 +146,9 @@ public class MeditationPlayerActivity extends AppCompatActivity {
         progressBar.setProgress(100);
         timerText.setText("00:00");
         
+        // Track meditation completion for achievements
+        trackMeditationCompletion();
+        
         // Re-enable start button after 3 seconds
         timerText.postDelayed(() -> {
             playPauseButton.setText("▶ Start Again");
@@ -148,6 +158,41 @@ public class MeditationPlayerActivity extends AppCompatActivity {
             progressBar.setProgress(0);
             statusText.setText("Ready to begin again");
         }, 3000);
+    }
+    
+    private void trackMeditationCompletion() {
+        SharedPreferences meditationPrefs = getSharedPreferences("MindSpaceMeditation", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = meditationPrefs.edit();
+        
+        // Update meditation stats
+        int totalSessions = meditationPrefs.getInt("total_sessions", 0) + 1;
+        editor.putInt("total_sessions", totalSessions);
+        editor.putLong("last_session_time", System.currentTimeMillis());
+        editor.apply();
+        
+        // Update streak tracking with new system
+        StreakTracker.StreakResult streakResult = streakTracker.updateStreak(StreakTracker.StreakType.MEDITATION);
+        
+        Log.d("MeditationPlayer", "Meditation completed (Total sessions: " + totalSessions + ")");
+        
+        // Show streak milestone message if reached
+        if (streakResult.milestoneReached > 0 || streakResult.isNewBest) {
+            String streakMessage = streakTracker.getMotivationalMessage(streakResult);
+            showStreakToast(streakMessage);
+        } else if (streakResult.isStreakIncreased) {
+            String streakMessage = streakTracker.getMotivationalMessage(streakResult);
+            showStreakToast(streakMessage);
+        }
+    }
+    
+    private void showStreakToast(String message) {
+        android.os.Handler handler = new android.os.Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                android.widget.Toast.makeText(MeditationPlayerActivity.this, message, android.widget.Toast.LENGTH_LONG).show();
+            }
+        }, 1500);
     }
 
     private void updateTimerDisplay() {
