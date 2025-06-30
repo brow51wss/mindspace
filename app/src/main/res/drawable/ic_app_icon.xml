@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Background Circle -->
+    <path
+        android:pathData="M54,10 A44,44 0 1,1 54,98 A44,44 0 1,1 54,10 Z"
+        android:fillColor="#4FD1C7" />
+    
+    <!-- Inner Circle for depth -->
+    <path
+        android:pathData="M54,16 A38,38 0 1,1 54,92 A38,38 0 1,1 54,16 Z"
+        android:fillColor="#38B2AC" />
+
+    <!-- Letter "M" - Bold and Clean -->
+    <path
+        android:pathData="M32,38 L32,70 L38,70 L38,48 L48,62 L50,62 L60,48 L60,70 L66,70 L66,38 L58,38 L49,52 L40,38 Z"
+        android:fillColor="#FFFFFF" />
+
+    <!-- Letter "P" - Bold and Clean -->
+    <path
+        android:pathData="M72,38 L72,70 L78,70 L78,58 L86,58 C90,58 93,55 93,51 L93,45 C93,41 90,38 86,38 L72,38 Z M78,44 L86,44 C87,44 87,44 87,45 L87,51 C87,52 87,52 86,52 L78,52 L78,44 Z"
+        android:fillColor="#FFFFFF" />
+
+    <!-- Subtle accent dot -->
+    <path
+        android:pathData="M52,28 A2,2 0 1,1 56,28 A2,2 0 1,1 52,28 Z"
+        android:fillColor="#E6FFFA" />
+
+</vector> 
