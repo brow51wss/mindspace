@@ -136,4 +136,11 @@
     <color name="logo_text_shadow">#2D3748</color>
     <color name="logo_accent_light">#E6FFFA</color>
     <color name="logo_accent_wave">#81E6D9</color>
+    
+    <!-- Authentication Colors -->
+    <color name="primary">#4F46E5</color>
+    <color name="primary_dark">#3730A3</color>
+    <color name="secondary">#10B981</color>
+    <color name="success_light">#ECFDF5</color>
+    <color name="success_dark">#059669</color>
 </resources> 

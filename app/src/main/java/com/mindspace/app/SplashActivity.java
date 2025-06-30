@@ -152,7 +152,7 @@ public class SplashActivity extends AppCompatActivity {
     }
     
     private void transitionToMainActivity() {
-        Log.d(TAG, "Starting transition to MainActivity");
+        Log.d(TAG, "Starting transition to AuthenticationActivity");
         
         // Create fade-out animation for the entire splash screen
         ObjectAnimator fadeOut = ObjectAnimator.ofFloat(backgroundView, "alpha", 1f, 0f);
@@ -162,8 +162,8 @@ public class SplashActivity extends AppCompatActivity {
         fadeOut.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                // Start MainActivity after fade-out completes
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                // Start AuthenticationActivity after fade-out completes
+                Intent intent = new Intent(SplashActivity.this, AuthenticationActivity.class);
                 startActivity(intent);
                 
                 // Custom transition animation
@@ -172,7 +172,7 @@ public class SplashActivity extends AppCompatActivity {
                 // Finish splash activity
                 finish();
                 
-                Log.d(TAG, "Transitioned to MainActivity");
+                Log.d(TAG, "Transitioned to AuthenticationActivity");
             }
         });
         
