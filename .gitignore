@@ -96,4 +96,5 @@ lint/tmp/
 # IDE files
 .vscode/
 *.swp
-*.swo 
+*.swo # Firebase Configuration File
+app/google-services.json
