@@ -68,6 +68,25 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        
+        // Add longpress to date display to reset data (for testing/debugging)
+        dateDisplay.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("Reset Data")
+                       .setMessage("Are you sure you want to reset all your mood data and streaks? This cannot be undone.")
+                       .setPositiveButton("Reset", new android.content.DialogInterface.OnClickListener() {
+                           @Override
+                           public void onClick(android.content.DialogInterface dialog, int which) {
+                               resetAllData();
+                           }
+                       })
+                       .setNegativeButton("Cancel", null)
+                       .show();
+                return true;
+            }
+        });
     }
     
     private void setupDateDisplay() {
@@ -183,6 +202,11 @@ public class MainActivity extends AppCompatActivity {
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
         editor.putString("last_entry_time_formatted", timeFormat.format(new Date()));
         
+        // Save individual mood entry for history
+        String timestamp = String.valueOf(System.currentTimeMillis());
+        String dateFormatted = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(new Date());
+        editor.putString("mood_entry_" + timestamp, mood + "|" + dateFormatted);
+        
         // Simple streak tracking (would be more sophisticated in real app)
         String lastEntryDate = moodPrefs.getString("last_entry_date", "");
         String todayDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
@@ -279,5 +303,21 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         // Update streak display when returning to main screen
         updateStreakDisplay();
+    }
+    
+    private void resetAllData() {
+        // Clear mood tracking data
+        SharedPreferences moodPrefs = getSharedPreferences("MindSpaceMoods", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = moodPrefs.edit();
+        editor.clear();
+        editor.apply();
+        
+        // Clear streak tracking data
+        streakTracker.resetAllStreaks();
+        
+        // Update UI
+        updateStreakDisplay();
+        
+        Toast.makeText(this, "All data has been reset! 🔄", Toast.LENGTH_LONG).show();
     }
 } 

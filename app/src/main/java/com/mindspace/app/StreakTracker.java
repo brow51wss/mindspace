@@ -295,6 +295,19 @@ public class StreakTracker {
         return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(cal.getTime());
     }
     
+    /**
+     * Reset all streaks for testing/debugging purposes
+     */
+    public void resetAllStreaks() {
+        for (StreakType type : StreakType.values()) {
+            SharedPreferences prefs = context.getSharedPreferences(type.prefsName, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.clear();
+            editor.apply();
+        }
+        Log.d(TAG, "All streaks have been reset");
+    }
+    
     // Result classes
     public static class StreakResult {
         public StreakType streakType;

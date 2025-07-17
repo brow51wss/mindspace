@@ -110,9 +110,10 @@
             android:gravity="center">
             
             <TextView
+                android:id="@+id/total_entries_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="5"
+                android:text="0"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:textColor="@color/primary_color" />
@@ -139,9 +140,10 @@
             android:gravity="center">
             
             <TextView
+                android:id="@+id/day_streak_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="3"
+                android:text="0"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:textColor="@color/success_color" />
@@ -168,9 +170,10 @@
             android:gravity="center">
             
             <TextView
+                android:id="@+id/most_common_mood"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="😊"
+                android:text="—"
                 android:textSize="24sp" />
                 
             <TextView
