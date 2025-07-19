@@ -5,7 +5,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'screens/resource_hub_screen.dart';void main() async {
+import 'package:package_info_plus/package_info_plus.dart';
+import 'screens/resource_hub_screen.dart';
+import 'screens/meditation_library_screen.dart';void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();  runApp(const MindSpaceApp());
 }
@@ -38,6 +40,7 @@ class _DailyCheckInScreenState extends State<DailyCheckInScreen> {
   String? selectedMood;
   int currentStreak = 0;
   bool hasCheckedInToday = false;
+  String versionInfo = 'Loading...';
   
   final List<Map<String, dynamic>> moods = [
     {'name': 'Happy', 'emoji': '😊', 'color': Colors.orange},
@@ -55,6 +58,20 @@ class _DailyCheckInScreenState extends State<DailyCheckInScreen> {
     super.initState();
     _loadStreakData();
     _checkTodayStatus();
+    _loadVersionInfo();
+  }
+
+  Future<void> _loadVersionInfo() async {
+    try {
+      PackageInfo packageInfo = await PackageInfo.fromPlatform();
+      setState(() {
+        versionInfo = 'v${packageInfo.version} (Build ${packageInfo.buildNumber})';
+      });
+    } catch (e) {
+      setState(() {
+        versionInfo = 'v1.3.0 (Build 1)'; // Fallback version
+      });
+    }
   }
 
   Future<void> _loadStreakData() async {
@@ -153,9 +170,12 @@ class _DailyCheckInScreenState extends State<DailyCheckInScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
+        child: Stack(
+          children: [
+            // Main content
+            SingleChildScrollView(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Header Section
@@ -314,7 +334,7 @@ class _DailyCheckInScreenState extends State<DailyCheckInScreen> {
                         _buildNavButton('📊', 'Progress', Colors.orange),
                         _buildNavButton('🏆', 'Achievements', Colors.amber),
                         _buildNavButton('💡', 'Plans', Colors.teal),
-                        _buildNavButton('��', 'Community', Colors.pink),
+                        _buildNavButton('👥', 'Community', Colors.pink),
                         _buildNavButton('📱', 'Settings', Colors.grey),
                       ],
                     ),
@@ -369,6 +389,29 @@ class _DailyCheckInScreenState extends State<DailyCheckInScreen> {
             ],
           ),
         ),
+            
+            // Version display in upper right corner
+            Positioned(
+              top: 8,
+              right: 8,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: Colors.black54,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  versionInfo,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -390,6 +433,13 @@ class _DailyCheckInScreenState extends State<DailyCheckInScreen> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => const ResourceHubScreen(),
+                ),
+              );
+            } else if (label == 'Meditation') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MeditationLibraryScreen(),
                 ),
               );
             } else {
