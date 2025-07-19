@@ -152,7 +152,7 @@ class _AchievementSystemScreenState extends State<AchievementSystemScreen> {
                 crossAxisCount: 2,
                 crossAxisSpacing: 12,
                 mainAxisSpacing: 12,
-                childAspectRatio: 1.0,
+                childAspectRatio: 0.85,
               ),
               itemCount: achievements.length,
               itemBuilder: (context, index) {
@@ -247,29 +247,33 @@ class _AchievementSystemScreenState extends State<AchievementSystemScreen> {
           const SizedBox(height: 12),
           
           // Achievement title
-          Text(
-            achievement.title,
-            style: TextStyle(
-              color: achievement.isUnlocked ? Colors.white : Colors.white54,
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
+          Flexible(
+            child: Text(
+              achievement.title,
+              style: TextStyle(
+                color: achievement.isUnlocked ? Colors.white : Colors.white54,
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
-            textAlign: TextAlign.center,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
           ),
-          const SizedBox(height: 6),
+          const SizedBox(height: 4),
           
           // Achievement description
-          Text(
-            achievement.description,
-            style: TextStyle(
-              color: achievement.isUnlocked ? Colors.white70 : Colors.white38,
-              fontSize: 12,
+          Flexible(
+            child: Text(
+              achievement.description,
+              style: TextStyle(
+                color: achievement.isUnlocked ? Colors.white70 : Colors.white38,
+                fontSize: 11,
+              ),
+              textAlign: TextAlign.center,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
             ),
-            textAlign: TextAlign.center,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(height: 8),
           
@@ -296,13 +300,15 @@ class _AchievementSystemScreenState extends State<AchievementSystemScreen> {
           
           // Unlock date if unlocked
           if (achievement.isUnlocked && achievement.unlockedDate != null) ...[
-            const SizedBox(height: 4),
+            const SizedBox(height: 2),
             Text(
               'Unlocked ${_formatDate(achievement.unlockedDate!)}',
               style: const TextStyle(
                 color: Colors.white54,
-                fontSize: 10,
+                fontSize: 9,
               ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
           ],
         ],
