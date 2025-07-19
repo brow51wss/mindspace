@@ -10,6 +10,7 @@ import 'screens/resource_hub_screen.dart';
 import 'screens/meditation_library_screen.dart';
 import 'screens/cbt_exercises_screen.dart';
 import 'screens/progress_dashboard_screen.dart';
+import 'screens/personalized_plan_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -458,6 +459,13 @@ class _DailyCheckInScreenState extends State<DailyCheckInScreen> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => ProgressDashboardScreen(),
+                ),
+              );
+            } else if (label == 'Plans') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PersonalizedPlanScreen(),
                 ),
               );
             } else {
