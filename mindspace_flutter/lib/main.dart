@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
-
-void main() async {
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'screens/resource_hub_screen.dart';void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MindSpaceApp());
+  await Firebase.initializeApp();  runApp(const MindSpaceApp());
 }
 
 class MindSpaceApp extends StatelessWidget {
@@ -382,11 +385,19 @@ class _DailyCheckInScreenState extends State<DailyCheckInScreen> {
         child: InkWell(
           borderRadius: BorderRadius.circular(8),
           onTap: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('$label coming soon!')),
-            );
-          },
-          child: Center(
+            if (label == 'Resources') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ResourceHubScreen(),
+                ),
+              );
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('$label coming soon!')),
+              );
+            }
+          },          child: Center(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
