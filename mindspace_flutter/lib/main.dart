@@ -7,7 +7,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'screens/resource_hub_screen.dart';
-import 'screens/meditation_library_screen.dart';void main() async {
+import 'screens/meditation_library_screen.dart';
+import 'screens/cbt_exercises_screen.dart';void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();  runApp(const MindSpaceApp());
 }
@@ -440,6 +441,13 @@ class _DailyCheckInScreenState extends State<DailyCheckInScreen> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => MeditationLibraryScreen(),
+                ),
+              );
+            } else if (label == 'CBT Tools') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CBTExercisesScreen(),
                 ),
               );
             } else {
