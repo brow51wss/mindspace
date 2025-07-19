@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
@@ -6,6 +7,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'models/auth_models.dart';
+import 'services/auth_service.dart';
+import 'screens/auth/login_screen.dart';
 import 'screens/resource_hub_screen.dart';
 import 'screens/meditation_library_screen.dart';
 import 'screens/cbt_exercises_screen.dart';
@@ -13,9 +17,15 @@ import 'screens/progress_dashboard_screen.dart';
 import 'screens/personalized_plan_screen.dart';
 import 'screens/achievement_system_screen.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();  runApp(const MindSpaceApp());
+  await Firebase.initializeApp();
+  
+  // Initialize authentication service
+  await AuthService().initialize();
+  
+  runApp(const MindSpaceApp());
 }
 
 class MindSpaceApp extends StatelessWidget {
@@ -29,8 +39,122 @@ class MindSpaceApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         useMaterial3: true,
       ),
-      home: const DailyCheckInScreen(),
+      home: const AuthWrapper(),
       debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class AuthWrapper extends StatefulWidget {
+  const AuthWrapper({super.key});
+
+  @override
+  State<AuthWrapper> createState() => _AuthWrapperState();
+}
+
+class _AuthWrapperState extends State<AuthWrapper> {
+  final AuthService _authService = AuthService();
+  AuthState _currentState = AuthState.unauthenticated;
+
+  @override
+  void initState() {
+    super.initState();
+    
+    // Listen to authentication state changes
+    _authService.authStateStream.listen((state) {
+      if (mounted) {
+        setState(() {
+          _currentState = state;
+        });
+      }
+    });
+
+    // Initialize the auth service
+    _authService.initialize();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    switch (_currentState) {
+      case AuthState.loading:
+        return const LoadingScreen();
+      case AuthState.authenticated:
+        return const DailyCheckInScreen();
+      case AuthState.unauthenticated:
+      default:
+        return const LoginScreen();
+    }
+  }
+}
+
+class LoadingScreen extends StatelessWidget {
+  const LoadingScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFF1E1E2E),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // MindSpace Logo
+            Container(
+              width: 100,
+              height: 100,
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF6C5CE7), Color(0xFFA855F7)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(25),
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0xFF6C5CE7).withOpacity(0.4),
+                    blurRadius: 25,
+                    offset: const Offset(0, 10),
+                  ),
+                ],
+              ),
+              child: const Icon(
+                Icons.psychology_outlined,
+                color: Colors.white,
+                size: 50,
+              ),
+            ),
+            
+            const SizedBox(height: 30),
+            
+            const Text(
+              'MindSpace',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 36,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1.5,
+              ),
+            ),
+            
+            const SizedBox(height: 40),
+            
+            const CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF6C5CE7)),
+              strokeWidth: 3,
+            ),
+            
+            const SizedBox(height: 20),
+            
+            Text(
+              'Loading your wellness journey...',
+              style: TextStyle(
+                color: Colors.white.withOpacity(0.7),
+                fontSize: 16,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -169,12 +293,75 @@ class _DailyCheckInScreenState extends State<DailyCheckInScreen> {
     }
   }
 
+  Future<void> _handleLogout() async {
+    final authService = AuthService();
+    await authService.signOut();
+    
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Logged out successfully'),
+          backgroundColor: Color(0xFF6C5CE7),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final today = DateFormat('EEEE, MMMM d').format(DateTime.now());
+    final authService = AuthService();
+    final user = authService.currentUser;
     
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Text(
+          'Welcome, ${user?.email?.split('@')[0] ?? 'User'}',
+          style: const TextStyle(
+            color: Color(0xFF1E1E2E),
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.logout,
+              color: Color(0xFF6C5CE7),
+            ),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text('Logout'),
+                    content: const Text('Are you sure you want to logout?'),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.of(context).pop(),
+                        child: const Text('Cancel'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          _handleLogout();
+                        },
+                        child: const Text(
+                          'Logout',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Stack(
           children: [
@@ -475,6 +662,10 @@ class _DailyCheckInScreenState extends State<DailyCheckInScreen> {
                 MaterialPageRoute(
                   builder: (context) => AchievementSystemScreen(),
                 ),
+              );
+            } else if (label == 'Settings') {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Settings coming soon!')),
               );
             } else {
               ScaffoldMessenger.of(context).showSnackBar(
