@@ -152,6 +152,7 @@ class AuthService {
   /// Sign in with email and password
   Future<AuthResult> signInWithEmail(String email, String password) async {
     try {
+      print('Attempting sign in for email: $email');
       _updateAuthState(AuthState.loading);
 
       // Validate input
@@ -167,10 +168,13 @@ class AuthService {
       }
 
       // Sign in with Firebase
+      print('Calling Firebase signInWithEmailAndPassword...');
       final credential = await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
+
+      print('Firebase sign in successful, user: ${credential.user?.email}');
 
       if (credential.user != null) {
         // Update last login time
@@ -185,16 +189,18 @@ class AuthService {
         return AuthResult.success(_currentUser!);
       } else {
         _updateAuthState(AuthState.unauthenticated);
-        return AuthResult.error('Failed to sign in', AuthErrorType.unknown);
+        return AuthResult.error('Sign in failed - no user returned', AuthErrorType.unknown);
       }
     } on FirebaseAuthException catch (e) {
+      print('FirebaseAuthException in sign in: ${e.code} - ${e.message}');
       _updateAuthState(AuthState.unauthenticated);
       final errorType = AuthErrorParser.parseErrorCode(e.code);
       final errorMessage = AuthErrorParser.getErrorMessage(e.code);
       return AuthResult.error(errorMessage, errorType);
     } catch (e) {
+      print('General error in sign in: $e');
       _updateAuthState(AuthState.unauthenticated);
-      return AuthResult.error('An unexpected error occurred', AuthErrorType.unknown);
+      return AuthResult.error('Unable to sign in. Please check your internet connection and try again.', AuthErrorType.networkError);
     }
   }
 
@@ -219,14 +225,22 @@ class AuthService {
         return AuthResult.error(emailError, AuthErrorType.invalidEmail);
       }
 
+      // Test connectivity first
+      print('Attempting to send password reset email to: $email');
+      
       await _auth.sendPasswordResetEmail(email: email);
-      return AuthResult.success(_currentUser!); // Success with no user data needed
+      print('Password reset email sent successfully');
+      
+      // Return success without user data for password reset
+      return AuthResult(success: true, user: null);
     } on FirebaseAuthException catch (e) {
+      print('FirebaseAuthException in password reset: ${e.code} - ${e.message}');
       final errorType = AuthErrorParser.parseErrorCode(e.code);
       final errorMessage = AuthErrorParser.getErrorMessage(e.code);
       return AuthResult.error(errorMessage, errorType);
     } catch (e) {
-      return AuthResult.error('Failed to send reset email', AuthErrorType.unknown);
+      print('General error in password reset: $e');
+      return AuthResult.error('Unable to send reset email. Please check your internet connection and try again.', AuthErrorType.networkError);
     }
   }
 

@@ -36,18 +36,28 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     });
 
     final email = _emailController.text.trim();
+    print('🔥 RESET PASSWORD: Attempting to send reset email to: $email');
+    
     final result = await _authService.sendPasswordResetEmail(email);
+    
+    print('🔥 RESET PASSWORD: Result success: ${result.success}');
+    print('🔥 RESET PASSWORD: Error message: ${result.errorMessage}');
 
     setState(() {
       _isLoading = false;
-      _emailSent = true;
     });
 
-    if (!result.success) {
+    if (result.success) {
+      setState(() {
+        _emailSent = true;
+      });
+      print('🔥 RESET PASSWORD: Email sent successfully!');
+    } else {
       setState(() {
         _errorMessage = result.errorMessage;
         _emailSent = false;
       });
+      print('🔥 RESET PASSWORD: Failed with error: ${result.errorMessage}');
     }
   }
 
@@ -73,11 +83,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   }
 
   Widget _buildResetForm() {
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
+    return SingleChildScrollView(
+      child: Form(
+        key: _formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
           const SizedBox(height: 40),
           const Text(
             'Reset Password',
@@ -206,16 +217,19 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     ),
             ),
           ),
+          const SizedBox(height: 40),
         ],
+        ),
       ),
     );
   }
 
   Widget _buildSuccessView() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        const SizedBox(height: 100),
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const SizedBox(height: 60),
         Container(
           width: 80,
           height: 80,
@@ -244,7 +258,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             style: TextStyle(color: Color(0xFF6C5CE7), fontSize: 16, fontWeight: FontWeight.w600),
           ),
         ),
+        const SizedBox(height: 40),
       ],
+      ),
     );
   }
 } 

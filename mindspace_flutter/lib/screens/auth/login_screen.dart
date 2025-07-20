@@ -77,6 +77,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
   }
 
   Future<void> _handleLogin() async {
+    print('🔥 LOGIN ATTEMPT STARTED');
     if (!_formKey.currentState!.validate()) return;
 
     setState(() {
@@ -86,14 +87,19 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
 
     final email = _emailController.text.trim();
     final password = _passwordController.text;
+    print('🔥 Attempting login with email: $email');
 
     final result = await _authService.signInWithEmail(email, password);
+    print('🔥 Login result - Success: ${result.success}, Error: ${result.errorMessage}');
+
+    if (!mounted) return;
 
     setState(() {
       _isLoading = false;
     });
 
     if (result.success && result.user != null) {
+      print('🔥 Login SUCCESS - navigating to dashboard');
       // Navigation will be handled by main.dart auth state listener
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -105,9 +111,11 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
         );
       }
     } else {
+      print('🔥 Login FAILED - Setting error message: ${result.errorMessage}');
       setState(() {
         _errorMessage = result.errorMessage;
       });
+      print('🔥 Error message set in state: $_errorMessage');
     }
   }
 
@@ -169,7 +177,10 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                     const SizedBox(height: 30),
                     
                     // Error Message
-                    if (_errorMessage != null) _buildErrorMessage(),
+                    if (_errorMessage != null) ...[
+                      Text('🔥 DEBUG: Error message exists: $_errorMessage'),
+                      _buildErrorMessage(),
+                    ],
                     
                     // Login Button
                     _buildLoginButton(),
